@@ -12,7 +12,7 @@ class MainTabController: UITabBarController {
     //MARK: - Properties
     
     //MARK: - Lifecycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -20,22 +20,31 @@ class MainTabController: UITabBarController {
     }
     
     //MARK: - Helpers
-    func configureViewControllers(){ //programatically하게 다른 모든 컨트롤러를 구현해줄 곳이다.
+    func configureViewControllers() {
+        // 각 탭의 뷰 컨트롤러를 설정합니다.
         let feed = FeedController()
-        feed.tabBarItem.image = UIImage(named: "home_unselected")
+        let nav1 = templateNavigationController(image: UIImage(named: "home_unselected"), rootViewController: feed)
         
         let explore = ExploreController()
-        explore.tabBarItem.image = UIImage(named: "search_unselected")
+        let nav2 = templateNavigationController(image: UIImage(named: "search_unselected"), rootViewController: explore)
         
         let notifications = NotificationsController()
-        notifications.tabBarItem.image = UIImage(named: "like_unselected")
-
+        let nav3 = templateNavigationController(image: UIImage(named: "like_unselected"), rootViewController: notifications)
+        
         let conversations = ConversationsController()
-        conversations.tabBarItem.image = UIImage(named: "search_unselected")
-
-        viewControllers = [feed, explore, notifications, conversations]
-        //필요한 보기 컨트롤러 속성들을 array로 정의를 해주었다.
-        //UITabBarController의 sub나 subclass로 가져올 것.
-        //
+        let nav4 = templateNavigationController(image: UIImage(named: "message_unselected"), rootViewController: conversations)
+        
+        viewControllers = [nav1, nav2, nav3, nav4]
     }
+    
+    func templateNavigationController(image: UIImage?, rootViewController: UIViewController) -> UINavigationController {
+        
+        let nav = UINavigationController(rootViewController: rootViewController)
+        nav.tabBarItem.image = image
+        nav.navigationBar.isTranslucent = false
+        nav.navigationBar.barTintColor = .white
+
+        return nav
+    }
+    //재사용성 굳~!~!~!~!
 }
