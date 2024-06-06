@@ -16,12 +16,12 @@ class MainTabController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         configureViewControllers()
     }
     
     //MARK: - Helpers
     func configureViewControllers() {
-        // 각 탭의 뷰 컨트롤러를 설정합니다.
         let feed = FeedController()
         let nav1 = templateNavigationController(image: UIImage(named: "home_unselected"), rootViewController: feed)
         
@@ -32,9 +32,10 @@ class MainTabController: UITabBarController {
         let nav3 = templateNavigationController(image: UIImage(named: "like_unselected"), rootViewController: notifications)
         
         let conversations = ConversationsController()
-        let nav4 = templateNavigationController(image: UIImage(named: "message_unselected"), rootViewController: conversations)
+        let nav4 = templateNavigationController(image: UIImage(named: "ic_mail_outline_white_2x-1"), rootViewController: conversations)
         
         viewControllers = [nav1, nav2, nav3, nav4]
+        //        self.setViewControllers(viewControllers, animated: true)
     }
     
     func templateNavigationController(image: UIImage?, rootViewController: UIViewController) -> UINavigationController {
@@ -43,7 +44,15 @@ class MainTabController: UITabBarController {
         nav.tabBarItem.image = image
         nav.navigationBar.isTranslucent = false
         nav.navigationBar.barTintColor = .white
-
+        
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .white
+        appearance.shadowColor = .gray //이렇게 해주니까 아래에 segment효과를 줄 수 있었다.! 
+        
+        nav.navigationBar.standardAppearance = appearance
+        nav.navigationBar.scrollEdgeAppearance = appearance
+        
         return nav
     }
     //재사용성 굳~!~!~!~!
