@@ -20,6 +20,7 @@
 		5CABC6722C11CCFD00B1A700 /* ExploreController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CABC6712C11CCFD00B1A700 /* ExploreController.swift */; };
 		5CABC6742C11CD0500B1A700 /* NotificationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CABC6732C11CD0500B1A700 /* NotificationsController.swift */; };
 		5CABC6762C11CD1200B1A700 /* ConversationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CABC6752C11CD1200B1A700 /* ConversationsController.swift */; };
+		5CABC67A2C11EDCA00B1A700 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CABC6792C11EDCA00B1A700 /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		5CABC6712C11CCFD00B1A700 /* ExploreController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreController.swift; sourceTree = "<group>"; };
 		5CABC6732C11CD0500B1A700 /* NotificationsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsController.swift; sourceTree = "<group>"; };
 		5CABC6752C11CD1200B1A700 /* ConversationsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsController.swift; sourceTree = "<group>"; };
+		5CABC6792C11EDCA00B1A700 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = ../../../Downloads/Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +145,7 @@
 		5CABC6662C11C3E700B1A700 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				5CABC6792C11EDCA00B1A700 /* Extensions.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -319,6 +322,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5CABC6742C11CD0500B1A700 /* NotificationsController.swift in Sources */,
+				5CABC67A2C11EDCA00B1A700 /* Extensions.swift in Sources */,
 				5CABC6372C11C3A500B1A700 /* AppDelegate.swift in Sources */,
 				5CABC6722C11CCFD00B1A700 /* ExploreController.swift in Sources */,
 				5CABC6762C11CD1200B1A700 /* ConversationsController.swift in Sources */,
