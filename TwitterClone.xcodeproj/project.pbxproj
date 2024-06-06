@@ -16,6 +16,10 @@
 		5CABC6582C11C3A600B1A700 /* TwitterCloneUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CABC6572C11C3A600B1A700 /* TwitterCloneUITests.swift */; };
 		5CABC65A2C11C3A600B1A700 /* TwitterCloneUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CABC6592C11C3A600B1A700 /* TwitterCloneUITestsLaunchTests.swift */; };
 		5CABC66E2C11C78A00B1A700 /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CABC66D2C11C78A00B1A700 /* MainTabController.swift */; };
+		5CABC6702C11CCC100B1A700 /* FeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CABC66F2C11CCC100B1A700 /* FeedController.swift */; };
+		5CABC6722C11CCFD00B1A700 /* ExploreController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CABC6712C11CCFD00B1A700 /* ExploreController.swift */; };
+		5CABC6742C11CD0500B1A700 /* NotificationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CABC6732C11CD0500B1A700 /* NotificationsController.swift */; };
+		5CABC6762C11CD1200B1A700 /* ConversationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CABC6752C11CD1200B1A700 /* ConversationsController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +53,10 @@
 		5CABC6572C11C3A600B1A700 /* TwitterCloneUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterCloneUITests.swift; sourceTree = "<group>"; };
 		5CABC6592C11C3A600B1A700 /* TwitterCloneUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterCloneUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		5CABC66D2C11C78A00B1A700 /* MainTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabController.swift; sourceTree = "<group>"; };
+		5CABC66F2C11CCC100B1A700 /* FeedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedController.swift; sourceTree = "<group>"; };
+		5CABC6712C11CCFD00B1A700 /* ExploreController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreController.swift; sourceTree = "<group>"; };
+		5CABC6732C11CD0500B1A700 /* NotificationsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsController.swift; sourceTree = "<group>"; };
+		5CABC6752C11CD1200B1A700 /* ConversationsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +158,10 @@
 			isa = PBXGroup;
 			children = (
 				5CABC66D2C11C78A00B1A700 /* MainTabController.swift */,
+				5CABC66F2C11CCC100B1A700 /* FeedController.swift */,
+				5CABC6712C11CCFD00B1A700 /* ExploreController.swift */,
+				5CABC6732C11CD0500B1A700 /* NotificationsController.swift */,
+				5CABC6752C11CD1200B1A700 /* ConversationsController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -306,9 +318,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CABC6742C11CD0500B1A700 /* NotificationsController.swift in Sources */,
 				5CABC6372C11C3A500B1A700 /* AppDelegate.swift in Sources */,
+				5CABC6722C11CCFD00B1A700 /* ExploreController.swift in Sources */,
+				5CABC6762C11CD1200B1A700 /* ConversationsController.swift in Sources */,
 				5CABC6392C11C3A500B1A700 /* SceneDelegate.swift in Sources */,
 				5CABC66E2C11C78A00B1A700 /* MainTabController.swift in Sources */,
+				5CABC6702C11CCC100B1A700 /* FeedController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
