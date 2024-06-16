@@ -71,11 +71,12 @@ class LoginController: UIViewController{
     
     //MARK: - Selectors
     @objc func handleLogin(){
-        print("Handle login here...")
+        print("Login---")
     }
     
     @objc func handleShowSignUp(){
-        print("showSignUp")
+        let controller = RegistrationController()
+        navigationController?.pushViewController(controller, animated: true)
     }
     
     //MARK: - Helpers
@@ -95,7 +96,8 @@ class LoginController: UIViewController{
         
         view.addSubview(stack)
         stack.anchor(top: logoImageView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingLeft: 16, paddingRight: 16)
+        
         view.addSubview(dontHaveAccountButton)
-        dontHaveAccountButton.anchor(left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor)
+        dontHaveAccountButton.anchor(left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor,paddingLeft: 40, paddingRight: 40)
     }
 }
