@@ -13,6 +13,8 @@ class RegistrationController: UIViewController{
     
     private let imagePicker = UIImagePickerController()
     
+    private var profileImage: UIImage?
+    
     private let plusPhotoButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "plus_photo"), for: .normal)
@@ -38,7 +40,7 @@ class RegistrationController: UIViewController{
     }()
     
     private lazy var fullnameContainerView: UIView = {
-        guard let image = UIImage(named: "ic_lock_outline_white_2x") else {
+        guard let image = UIImage(named: "ic_mail_outline_white_2x-1") else {
             return UIView()
         }
         let view = Utilities().inputContainerView(withImage: image, textField: fullnameTextField)
@@ -66,7 +68,6 @@ class RegistrationController: UIViewController{
     
     private let fullnameTextField: UITextField = {
         let tf = Utilities().textField(withPlaceholder: "Full Name")
-        tf.isSecureTextEntry = true
         return tf
     }()
     
@@ -108,19 +109,44 @@ class RegistrationController: UIViewController{
     }
     
     @objc func handleRegistration(){
+        guard let profileImage = profileImage else {
+            print("DEBUG: Please select a profile image..")
+            return
+        }
         guard let email = emailTextField.text else { return }
         guard let password = passwordTextField.text else { return }
+        guard let fullname = fullnameTextField.text else { return }
+        guard let username = usernameTextField.text else { return }
         
-        Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
-            if let error = error {
-                print("DEBUG: Error is \(error.localizedDescription)")
-                return
+        guard let imageData = profileImage.jpegData(compressionQuality: 0.3) else { return }
+        //이미지를 가져와주는 부분이다. 압축을 하지 않으면 업로드 되는 시간이 굉장히 오래걸리게 된다.
+        let filename = NSUUID().uuidString
+        let storageRef = STORAGE_PROFILE_IMAGES.child(filename)
+        
+        storageRef.putData(imageData, metadata: nil) { (meta, error) in
+            //downloadURL필요
+            storageRef.downloadURL{(url, error) in
+                guard let profileImageUrl = url?.absoluteString else { return }
+                Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
+                    if let error = error {
+                        print("DEBUG: Error is \(error.localizedDescription)")
+                        return
+                    }
+                    
+                    guard let uid = result?.user.uid else { return }
+
+                    let values = ["email" : email,
+                                  "username": username,
+                                  "fullname": fullname,
+                                  "profileImageUrl": profileImageUrl]
+                    
+                    REF_USERS.child(uid).updateChildValues(values){(error, ref) in
+                        print("DEBUG: Successfully updated user information..")
+                    }
+                }
             }
-            print("DEBUG: Succesfully registered user")
         }
-
     }
-
     
     //MARK: - Helpers
     func configureUI(){
@@ -150,6 +176,7 @@ class RegistrationController: UIViewController{
 extension RegistrationController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let profileImage = info[.editedImage] as? UIImage else {return} //언래핑 해줌. 옵셔널타입이라서.
+        self.profileImage = profileImage
         
         plusPhotoButton.layer.cornerRadius = 128/2
         plusPhotoButton.layer.masksToBounds = true

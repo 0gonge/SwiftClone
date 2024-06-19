@@ -1,9 +1,7 @@
-//
 //  Extensions.swift
-//  TwitterTutorial
+//  TwitterClone
 //
-//  Created by Stephen Dowless on 1/12/20.
-//  Copyright © 2020 Stephan Dowless. All rights reserved.
+//  Created by 송여경 on 6/16/24.
 //
 
 import UIKit
