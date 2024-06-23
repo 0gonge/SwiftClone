@@ -54,6 +54,7 @@
 		5CABC6762C11CD1200B1A700 /* ConversationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CABC6752C11CD1200B1A700 /* ConversationsController.swift */; };
 		5CABC67A2C11EDCA00B1A700 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CABC6792C11EDCA00B1A700 /* Extensions.swift */; };
 		5CB201462C2339FB00E0BB6C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB201452C2339FB00E0BB6C /* Constants.swift */; };
+		5CB201482C288E4A00E0BB6C /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB201472C288E4A00E0BB6C /* AuthService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +98,7 @@
 		5CABC6752C11CD1200B1A700 /* ConversationsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsController.swift; sourceTree = "<group>"; };
 		5CABC6792C11EDCA00B1A700 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		5CB201452C2339FB00E0BB6C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		5CB201472C288E4A00E0BB6C /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -231,6 +233,7 @@
 		5CABC6672C11C41100B1A700 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				5CB201472C288E4A00E0BB6C /* AuthService.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -440,6 +443,7 @@
 				5CABC6372C11C3A500B1A700 /* AppDelegate.swift in Sources */,
 				5CABC6722C11CCFD00B1A700 /* ExploreController.swift in Sources */,
 				5C0F35F32C1C74EE00B06B64 /* RegistrationController.swift in Sources */,
+				5CB201482C288E4A00E0BB6C /* AuthService.swift in Sources */,
 				5CABC6762C11CD1200B1A700 /* ConversationsController.swift in Sources */,
 				5CABC6392C11C3A500B1A700 /* SceneDelegate.swift in Sources */,
 				5CABC66E2C11C78A00B1A700 /* MainTabController.swift in Sources */,
