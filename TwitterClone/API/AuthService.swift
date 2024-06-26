@@ -18,6 +18,11 @@ struct AuthCredentials {
 struct AuthService {
     static let shared = AuthService()
     
+    func logUserIn(withEmail email: String, password: String, completion: ((AuthDataResult?, Error?) -> Void)?) {
+         Auth.auth().signIn(withEmail: email, password: password, completion: completion)
+     }
+    //-> Void: 클로저의 반환 타입. Void는 반환 값이 없음을 의미. 즉, 클로저가 실행된 후 아무런 값을 반환하지 않는다.
+    
     func registerUser(credentials: AuthCredentials, completion: @escaping(Error?, DatabaseReference) -> Void){
         let email = credentials.email
         let password = credentials.password
