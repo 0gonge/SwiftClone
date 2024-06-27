@@ -25,7 +25,7 @@ class MainTabController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        logUserOut()
+        logUserOut()
         view.backgroundColor = .twitterBlue //화면 전환될 때 조금 더 cleaner하게 보일 수 있도록- 
         authenticateUserAndCongigureUI()
     }
