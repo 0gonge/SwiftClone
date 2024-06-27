@@ -70,14 +70,29 @@ class LoginController: UIViewController{
     }
     
     //MARK: - Selectors
-    @objc func handleLogin(){
-        print("Login---")
-    }
-    
     @objc func handleShowSignUp(){
         let controller = RegistrationController()
         navigationController?.pushViewController(controller, animated: true)
     }
+    @objc func handleLogin(){
+        guard let email = emailTextField.text else{ return }
+        guard let password = passwordTextField.text else { return }
+        
+        AuthService.shared.logUserIn(withEmail: email, password: password) {(result, error) in if let error = error{
+            print("DEBUG: Error logging in \(error.localizedDescription)")
+            return
+        }
+            
+            guard let window = UIApplication.shared.windows.first(where: {$0.isKeyWindow}) else { return }
+            guard let tab = window.rootViewController as? MainTabController else { return }
+            
+            tab.authenticateUserAndCongigureUI()
+            //얘를 해 주어야만, 정상적으로 로그인 할 수 있다.
+            
+            self.dismiss(animated: true, completion: nil)
+        }
+    } //사용자가 로그인 성공 후 화면 닫고 이전 화면으로 돌아가게 함. dismiss
+    //로그인에 성공하면 MainTabController를 설정하고, UI를 업데이트한 뒤 현재 화면을 닫는다.
     
     //MARK: - Helpers
     func configureUI(){

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class MainTabController: UITabBarController {
     
@@ -23,10 +24,39 @@ class MainTabController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureViewControllers()
-        configureUI()
+        
+        logUserOut()
+        view.backgroundColor = .twitterBlue //화면 전환될 때 조금 더 cleaner하게 보일 수 있도록- 
+        authenticateUserAndCongigureUI()
     }
     
+    //MARK: - API
+    //로그인 된 유저가 로그인을 유지하면서 어플을 이용할 수 있도록 하기 위해 구현
+    func authenticateUserAndCongigureUI(){
+        if Auth.auth().currentUser == nil {
+            //main thread에서 구현이 되어야 함/ 비동기적으로
+            DispatchQueue.main.async{
+                let nav = UINavigationController(rootViewController: LoginController())
+                //로그인에 네비게이션 컨트롤러 내장이 되어있기 때문에 이렇게 해주어야 한다.
+                //만약 로그인 컨트롤러만 선언해주게 되면, 로그인 화면에서 가입 화면으로 전환할 수 없다.
+                nav.modalPresentationStyle = .fullScreen
+                self.present(nav, animated: true, completion: nil)
+            }
+        }
+        else {
+            configureViewControllers()
+            configureUI()
+            //사용자가 로그인 할 때까지 / 로그인 하면 mainTabController가 보일 수 있도록
+        }
+    }
+    //로그아웃 구현
+    func logUserOut(){
+        do{
+            try Auth.auth().signOut()
+        } catch let error{
+            print("DEBUG: Failed to sign out with error \(error.localizedDescription)")
+        }
+    }
     //MARK: - Selectors
     @objc func actionButtonTapped(){
         print("123")
