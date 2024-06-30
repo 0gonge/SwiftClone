@@ -11,6 +11,21 @@ import Firebase
 class MainTabController: UITabBarController {
     
     //MARK: - Properties
+  
+  var user: User? {
+    //프로퍼티 옵저버다. 프로퍼티 값이 변경될 때마다 코드 실행할 수 있게 해줌.
+    //didset - 프로퍼티 변경 직후에 호출
+    //willset - 프로퍼티 값 변경 직전에 호출
+    //아래 유저 fetch 되면 didset이 호출되는 것임.
+    didSet{
+      //아래 4개의 영역 중 (viewController) 0번째. navigationcontroller다 feed controller를 inside에 둔.
+      guard let nav = viewControllers?[0] as? UINavigationController else { return } //UINavigationController 타입인지 검사
+      guard let feed = nav.viewControllers.first as? FeedController else { return } //return - 블록 그냥 종료
+      //FeedController 타입인지 검사
+      
+      feed.user = user
+    }
+  }
     let actionButton: UIButton = {
         let button = UIButton(type: .system)
         button.tintColor = .white
@@ -25,12 +40,19 @@ class MainTabController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        logUserOut()
+//        logUserOut()
         view.backgroundColor = .twitterBlue //화면 전환될 때 조금 더 cleaner하게 보일 수 있도록- 
         authenticateUserAndCongigureUI()
     }
     
     //MARK: - API
+  //tabBarController에 해주는게 좋음. 왜냐하면 탭바 움직일 때마다 사용자 정보 반영.fetch를 tabBar에서 해주면 편함.
+  func fetchUser(){
+    UserService.shared.fetchUser { user in
+      self.user = user
+      //유저가 fetch되기 전까지 실행이 되지 않음을 알 수 있다.
+    }
+  }
     //로그인 된 유저가 로그인을 유지하면서 어플을 이용할 수 있도록 하기 위해 구현
     func authenticateUserAndCongigureUI(){
         if Auth.auth().currentUser == nil {
@@ -47,6 +69,8 @@ class MainTabController: UITabBarController {
             configureViewControllers()
             configureUI()
             //사용자가 로그인 할 때까지 / 로그인 하면 mainTabController가 보일 수 있도록
+          fetchUser()
+          //로그인 후 패치 해주어야 하니까 여기에.
         }
     }
     //로그아웃 구현
