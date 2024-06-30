@@ -11,7 +11,7 @@ struct User {
   let fullname: String
   let email: String
   let username: String
-  let profileImageUrl: String
+  var profileImageUrl: URL?
   let uid: String
   
   init(uid: String, dictionary: [String: AnyObject]){
@@ -20,6 +20,11 @@ struct User {
     self.fullname = dictionary["fullname"] as? String ?? ""
     self.email = dictionary["email"] as? String ?? ""
     self.username = dictionary["username"] as? String ?? ""
-    self.profileImageUrl = dictionary["profileImageUrl"] as? String ?? ""
+    
+    if let profileImageUrlString = dictionary["profileImageUrl"] as? String{ //문자열 추출
+      guard let url = URL(string: profileImageUrlString) else { return } //추출한 문자열을 URL로 변환
+      self.profileImageUrl = url //변환된 url을 self로 설정.
+    }
   }
 }
+

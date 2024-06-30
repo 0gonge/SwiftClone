@@ -19,8 +19,9 @@ class MainTabController: UITabBarController {
     //아래 유저 fetch 되면 didset이 호출되는 것임.
     didSet{
       //아래 4개의 영역 중 (viewController) 0번째. navigationcontroller다 feed controller를 inside에 둔.
-      guard let nav = viewControllers?[0] as? UINavigationController else { return }
-      guard let feed = nav.viewControllers.first as? FeedController else { return }
+      guard let nav = viewControllers?[0] as? UINavigationController else { return } //UINavigationController 타입인지 검사
+      guard let feed = nav.viewControllers.first as? FeedController else { return } //return - 블록 그냥 종료
+      //FeedController 타입인지 검사
       
       feed.user = user
     }
