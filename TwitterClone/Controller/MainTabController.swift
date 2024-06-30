@@ -25,12 +25,16 @@ class MainTabController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        logUserOut()
+//        logUserOut()
         view.backgroundColor = .twitterBlue //화면 전환될 때 조금 더 cleaner하게 보일 수 있도록- 
         authenticateUserAndCongigureUI()
     }
     
     //MARK: - API
+  //tabBarController에 해주는게 좋음. 왜냐하면 탭바 움직일 때마다 사용자 정보 반영.fetch를 tabBar에서 해주면 편함.
+  func fetchUser(){
+    UserService.shared.fetchUser()
+  }
     //로그인 된 유저가 로그인을 유지하면서 어플을 이용할 수 있도록 하기 위해 구현
     func authenticateUserAndCongigureUI(){
         if Auth.auth().currentUser == nil {
@@ -47,6 +51,8 @@ class MainTabController: UITabBarController {
             configureViewControllers()
             configureUI()
             //사용자가 로그인 할 때까지 / 로그인 하면 mainTabController가 보일 수 있도록
+          fetchUser()
+          //로그인 후 패치 해주어야 하니까 여기에.
         }
     }
     //로그아웃 구현
