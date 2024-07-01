@@ -83,7 +83,9 @@ class MainTabController: UITabBarController {
     }
     //MARK: - Selectors
     @objc func actionButtonTapped(){
-        print("123")
+        let nav = UINavigationController(rootViewController: UploadTweetController())
+      nav.modalPresentationStyle = .fullScreen
+      present(nav, animated: true, completion: nil)
     }
     
     //MARK: - Helpers
@@ -91,12 +93,12 @@ class MainTabController: UITabBarController {
     func configureUI(){
         view.addSubview(actionButton) //safeArea는 기종이 다를때에도 대응해줌. 
         actionButton.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, paddingBottom: 64, paddingRight: 16, width: 56, height: 56)
-        actionButton.layer.cornerRadius = 56 / 2 //그러면 원이 될 것임 넓이 높이 나누기 2
-        let apperearance = UITabBarAppearance()
+      actionButton.layer.cornerRadius = 56 / 2 //그러면 원이 될 것임 넓이 높이 나누기 2
+      let apperearance = UITabBarAppearance()
 //        apperearance.configureWithOpaqueBackground()
 //        apperearance.backgroundColor = .white
-        self.tabBar.standardAppearance = apperearance
-        self.tabBar.scrollEdgeAppearance = apperearance
+      self.tabBar.standardAppearance = apperearance
+      self.tabBar.scrollEdgeAppearance = apperearance
     }
     func configureViewControllers() {
         let feed = FeedController()
