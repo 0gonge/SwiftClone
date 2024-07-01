@@ -83,7 +83,10 @@ class MainTabController: UITabBarController {
     }
     //MARK: - Selectors
     @objc func actionButtonTapped(){
-        let nav = UINavigationController(rootViewController: UploadTweetController())
+      guard let user = user else { return }
+      //user가 있는 경우에만 진행~ good
+        let controller = UploadTweetController(user: user)
+        let nav = UINavigationController(rootViewController: controller)
       nav.modalPresentationStyle = .fullScreen
       present(nav, animated: true, completion: nil)
     }
