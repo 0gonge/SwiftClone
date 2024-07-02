@@ -17,4 +17,6 @@ let DB_REF = Database.database().reference()
 let REF_USERS = DB_REF.child("users")
 //user에 접근하고 싶을 때 마다 사용될 수 있겠다.
 //나는 _ 로 단어들을 분리해주고자 한다. - 변수명
+let REF_TWEETS = DB_REF.child("tweets")
+//데이터베이스에 tweets의 child를 만들어줌.
 
