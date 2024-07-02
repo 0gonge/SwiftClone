@@ -60,8 +60,19 @@ class UploadTweetController: UIViewController {
     dismiss(animated: true, completion: nil)
     //화면에 표시되고 있는 뷰 컨트롤러를 해제(dismiss)하여 이전 화면으로 돌아가는 기능을 수행해줌.
   }
+  
   @objc func handleUploadTweet(){
-    print("DEBUG: Upload Tweets")
+    guard let caption = captionTextView.text else { return }
+    TweetService.shared.uploadTweet(caption: caption) { (error, ref) in
+      if let error = error {
+        print("DEBUG: Failed to upload tweet with error \(error.localizedDescription)")
+        return
+      }
+      
+      self.dismiss(animated: true, completion: nil)
+      //uploadTweet 메서드가 완료된 후 호출될 클로저 -> 비동기적 처리
+      //error는 오류 발생하지 않을 경우 nil
+    }
   }
   
   //MARK: - API
