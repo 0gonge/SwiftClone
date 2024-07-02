@@ -37,6 +37,9 @@ class UploadTweetController: UIViewController {
     iv.backgroundColor = .twitterBlue
     return iv
   }()
+  
+  private let captionTextView = CaptionTextView()
+  
   //MARK: - Lifecycle
   init(user: User){
     self.user = user
