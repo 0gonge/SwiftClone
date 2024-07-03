@@ -25,8 +25,18 @@ struct TweetService {
     REF_TWEETS.childByAutoId().updateChildValues(values, withCompletionBlock: completion)
   }
   //completion이 여기에 매치된다.
-  
-  
-  
+  func fetchTweets(completion: @escaping([Tweet]) -> Void){
+    var tweets = [Tweet]()
+    //배열 초기화 빈 Tweet을 만듬.
+    
+    //observe - 데이터베이스에서 새로운 트윗이 추가될 때마다 호출
+    REF_TWEETS.observe(.childAdded) { snapshot in
+      guard let dictionary = snapshot.value as? [String: Any] else { return }
+      let tweetID = snapshot.key
+      let tweet = Tweet(tweetID: tweetID, dictionary: dictionary)
+      tweets.append(tweet)
+      completion(tweets)
+    }
+  }
 }
 
