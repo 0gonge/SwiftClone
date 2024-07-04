@@ -14,7 +14,7 @@ struct TweetService {
     guard let uid = Auth.auth().currentUser?.uid else { return }
     //함수가 반환된 후에도 유지되어야 하는 경우 escaping을 써준다. 비동기적 처리!!
     //이 클로저는 호출된 후 아무 값도 반환하지 않는다 Void.
-    let values = 
+    let values =
     ["uid": uid,
      "timestamp": Int(NSDate().timeIntervalSince1970),
      "likes": 0,
@@ -25,6 +25,7 @@ struct TweetService {
     REF_TWEETS.childByAutoId().updateChildValues(values, withCompletionBlock: completion)
   }
   //completion이 여기에 매치된다.
+  
   func fetchTweets(completion: @escaping([Tweet]) -> Void){
     var tweets = [Tweet]()
     //배열 초기화 빈 Tweet을 만듬.

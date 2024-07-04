@@ -8,7 +8,10 @@
 import UIKit
 import SDWebImage
 
-class FeedController: UIViewController {
+private let reuseIdentifier = "TweetCell"
+
+class FeedController: UICollectionViewController {
+  
   //MARK: - Properties
   
   var user: User?{
@@ -35,6 +38,9 @@ class FeedController: UIViewController {
   func configureUI(){
     view.backgroundColor = .white
     
+    collectionView.register(TweetCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+    collectionView.backgroundColor = .white
+    
     let imageView = UIImageView(image: UIImage(named: "twitter_logo_blue"))
     imageView.contentMode = .scaleAspectFit
     imageView.setDimensions(width: 44, height: 44)
@@ -53,5 +59,24 @@ class FeedController: UIViewController {
     //completed: nil은 이미지 다운로드가 완료된 후 추가적으로 실행할 코드가 없다는 것을 의미한다. 즉, 이미지를 설정하는 것만 필요하고, 완료 후 특별히 처리할 작업이 없기 때문에 콜백 함수를 지정하지 않은 것!
     
     navigationItem.leftBarButtonItem = UIBarButtonItem(customView: profileImageView)
+  }
+}
+
+extension FeedController {
+  override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
+    return 5
+  }
+  
+  override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! TweetCell
+    return cell
+  }
+  
+}
+//cell크기 동적 조절 / 프로토콜
+
+extension FeedController: UICollectionViewDelegateFlowLayout {
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    return CGSize(width: view.frame.width, height: 200)
   }
 }
