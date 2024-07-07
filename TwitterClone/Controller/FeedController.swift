@@ -71,7 +71,9 @@ extension FeedController {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! TweetCell
     return cell
   }
-  
+  //컬렉션 뷰에서 셀을 재사용할 때, dequeueReusableCell 메서드가 반환하는 셀이 항상 TweetCell 타입임을 보장
+  //nil을 반환할 가능성이 없다!!!
+  //dequeueReusableCell 메서드는 항상 등록된 셀 타입을 반환하므로, 강제 언래핑(as!)을 통해 TweetCell로 안전하게 캐스팅
 }
 //cell크기 동적 조절 / 프로토콜
 
