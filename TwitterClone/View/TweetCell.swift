@@ -24,40 +24,80 @@ class TweetCell: UICollectionViewCell {
     let label = UILabel()
     label.font = UIFont.systemFont(ofSize: 14)
     label.numberOfLines = 0
-    label.text = "Some test caption"
+    label.text = "코딩 잘하고 싶다 iOS 잘 하고 싶다"
     return label
+  }()
+  
+  private lazy var commentButton: UIButton = {
+    let button = UIButton(type: .system)
+    button.setImage(UIImage(named: "comment"), for: .normal)
+    button.tintColor = .darkGray
+    button.setDimensions(width: 20, height: 20)
+    button.addTarget(self, action: #selector(handleCommentTapped), for: .touchUpInside)
+    return button
+  }()
+  
+  private lazy var retweetButton: UIButton = {
+    let button = UIButton(type: .system)
+    button.setImage(UIImage(named: "retweet"), for: .normal)
+    button.tintColor = .darkGray
+    button.setDimensions(width: 20, height: 20)
+    button.addTarget(self, action: #selector(handleRetweetTapped), for: .touchUpInside)
+    return button
+  }()
+  
+  private lazy var likeButton: UIButton = {
+    let button = UIButton(type: .system)
+    button.setImage(UIImage(named: "like"), for: .normal)
+    button.tintColor = .darkGray
+    button.setDimensions(width: 20, height: 20)
+    button.addTarget(self, action: #selector(handleLikeTapped), for: .touchUpInside)
+    return button
+  }()
+  
+  private lazy var shareButton: UIButton = {
+    let button = UIButton(type: .system)
+    button.setImage(UIImage(named: "share"), for: .normal)
+    button.tintColor = .darkGray
+    button.setDimensions(width: 20, height: 20)
+    button.addTarget(self, action: #selector(handleShareTapped), for: .touchUpInside)
+    return button
   }()
   
   private let infoLabel = UILabel()
   
   //MARK: - Lifecycle
   
-  override init(frame: CGRect){
+  override init(frame: CGRect) {
     super.init(frame: frame)
     
     backgroundColor = .white
     addSubview(profileImageView)
-    profileImageView.anchor(top: topAnchor, left: leftAnchor, 
-                            paddingTop: 12, paddingLeft: 8)
+    profileImageView.anchor(top: topAnchor, left: leftAnchor,
+                            paddingTop: 8, paddingLeft: 8)
     let stack = UIStackView(arrangedSubviews: [infoLabel, captionLabel])
     stack.axis = .vertical
     stack.distribution = .fillProportionally
-    //fillProportionally 옵션을 사용하면 Stack View 내의 서브뷰들이 각자의 고유 크기 비율에 맞게 공간을 분배/ 반응형 Good.
     stack.spacing = 4
     
-    addSubview(
-      stack
-    )
-    stack.anchor(
-      top: profileImageView.topAnchor,
-      left: profileImageView.rightAnchor,
-      right: rightAnchor,
-      paddingLeft: 12,
-      paddingRight: 12
-    )
+    addSubview(stack)
+    stack.anchor(top: profileImageView.topAnchor,
+                 left: profileImageView.rightAnchor,
+                 right: rightAnchor,
+                 paddingLeft: 12,
+                 paddingRight: 12)
     
     infoLabel.font = UIFont.systemFont(ofSize: 14)
-    infoLabel.text = "Eddie Brock @venom"
+    infoLabel.text = "songyeogyeong @502"
+    
+    let actionStack = UIStackView(arrangedSubviews: [commentButton, retweetButton, likeButton, shareButton])
+    
+    actionStack.axis = .horizontal
+    actionStack.spacing = 72
+    
+    addSubview(actionStack)
+    actionStack.centerX(inView: self)
+    actionStack.anchor(bottom: bottomAnchor, paddingBottom: 8)
     
     let underlineView = UIView()
     underlineView.backgroundColor = .systemGroupedBackground
@@ -65,7 +105,20 @@ class TweetCell: UICollectionViewCell {
     underlineView.anchor(left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, height: 1)
   }
   
-  required init?(coder: NSCoder){
-    fatalError("init(corder: has not been implemented")
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
+  //MARK: - Selectors
+  @objc func handleCommentTapped() {
+  }
+  
+  @objc func handleRetweetTapped() {
+  }
+  
+  @objc func handleLikeTapped() {
+  }
+  
+  @objc func handleShareTapped() {
   }
 }
