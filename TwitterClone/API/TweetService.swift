@@ -6,6 +6,8 @@
 //
 
 import Firebase
+import FirebaseDatabaseInternal
+import FirebaseAuth
 
 struct TweetService {
   static let shared = TweetService()

@@ -6,6 +6,7 @@
 //
 
 import Firebase
+import FirebaseAuth
 
 struct UserService{
   static let shared = UserService()
