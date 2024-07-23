@@ -10,6 +10,12 @@ import UIKit
 class TweetCell: UICollectionViewCell {
   
   //MARK: - Properties
+  
+  var tweet: Tweet? {
+    didSet { configure() }
+  }
+  //tweet이 있을 경우에만 cell을 생성해주고 싶기 때문.
+  
   private let profileImageView: UIImageView = {
     let iv = UIImageView()
     iv.contentMode = .scaleAspectFill
@@ -120,5 +126,11 @@ class TweetCell: UICollectionViewCell {
   }
   
   @objc func handleShareTapped() {
+  }
+  
+  func configure() {
+    guard let tweet = tweet else { return } // optinal이기 때문에.
+    
+    captionLabel.text = tweet.caption
   }
 }
