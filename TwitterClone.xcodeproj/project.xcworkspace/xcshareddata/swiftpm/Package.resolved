@@ -1,5 +1,5 @@
 {
-  "originHash" : "f54b1fe334a7680d42f5935c8d4cc50dbd68414475fb52f2ca14c595320b85f7",
+  "originHash" : "eb48da901bc65f399804ea6a64d78697541960009c8fdbd324cc250e073a6a72",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -24,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/firebase/firebase-ios-sdk",
       "state" : {
-        "revision" : "eca84fd638116dd6adb633b5a3f31cc7befcbb7d",
-        "version" : "10.29.0"
+        "revision" : "03189348b7798fe94b892a35883f1dc745814fe0",
+        "version" : "10.28.0"
       }
     },
     {
@@ -114,8 +114,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SDWebImage/SDWebImage.git",
       "state" : {
-        "revision" : "be0bcd7823ce56629948491f2eaeaa19979514f7",
-        "version" : "5.19.4"
+        "revision" : "b8523c1642f3c142b06dd98443ea7c48343a4dfd",
+        "version" : "5.19.3"
       }
     },
     {
