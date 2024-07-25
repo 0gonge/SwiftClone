@@ -132,5 +132,10 @@ class TweetCell: UICollectionViewCell {
     guard let tweet = tweet else { return } // optinal이기 때문에.
     
     captionLabel.text = tweet.caption
+//    print("DEBUG: Tweet user is \(tweet.user.username)")
+    //tweet model에 user 있고, user커스텀 구조 안에 username.
+    //.으로 접근 가능해짐.
+    profileImageView.sd_setImage(with: tweet.user.profileImageUrl)
+    infoLabel.text = tweet.user.username
   }
 }

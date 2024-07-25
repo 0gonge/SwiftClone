@@ -35,10 +35,15 @@ struct TweetService {
     //observe - 데이터베이스에서 새로운 트윗이 추가될 때마다 호출
     REF_TWEETS.observe(.childAdded) { snapshot in
       guard let dictionary = snapshot.value as? [String: Any] else { return }
+      guard let uid = dictionary["uid"] as? String else { return }
       let tweetID = snapshot.key
-      let tweet = Tweet(tweetID: tweetID, dictionary: dictionary)
-      tweets.append(tweet)
-      completion(tweets)
+      
+      UserService.shared.fetchUser(uid: uid) { user in
+        let tweet = Tweet(user: user, tweetID: tweetID, dictionary: dictionary)
+        tweets.append(tweet)
+        completion(tweets)
+//uid는 모든 사람이 보여지는게 가능하다.자신껏만 tweet이 보여지는 것이 아니다.  
+      }
     }
   }
 }

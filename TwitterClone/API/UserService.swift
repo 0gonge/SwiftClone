@@ -14,8 +14,8 @@ struct UserService{
   //데이터를 가져오는 작업이 완료되면 호출되어 결과를 전달하는 것임.
   //escaping은 클로저가 함수 본문이 끝난 후에도 실행될 수 있음을 뜻함. -> 비동기적 처리
   
-  func fetchUser(completion: @escaping(User) -> Void) {
-    guard let uid = Auth.auth().currentUser?.uid else { return }
+  func fetchUser(uid: String, completion: @escaping(User) -> Void) {
+
     
     REF_USERS.child(uid).observeSingleEvent(of: .value){ snapshot in
       guard let dictionary = snapshot.value as? [String: AnyObject] else { return }

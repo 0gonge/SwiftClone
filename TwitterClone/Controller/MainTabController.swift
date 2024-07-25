@@ -49,7 +49,8 @@ class MainTabController: UITabBarController {
     //MARK: - API
   //tabBarController에 해주는게 좋음. 왜냐하면 탭바 움직일 때마다 사용자 정보 반영.fetch를 tabBar에서 해주면 편함.
   func fetchUser(){
-    UserService.shared.fetchUser { user in
+    guard let uid = Auth.auth().currentUser?.uid else { return }
+    UserService.shared.fetchUser(uid: uid) { user in
       self.user = user
       //유저가 fetch되기 전까지 실행이 되지 않음을 알 수 있다.
     }
