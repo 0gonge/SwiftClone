@@ -109,3 +109,9 @@ extension FeedController: TweetCellDelegate {
   }
 }
 
+//extension FeedController : TweetCellDelegate {
+//  func handleProfileImageTapped() {
+//    let controller = ProfileController(collectionViewLayout: UICollectionViewLayout())
+//    navigationController?.pushViewController(controller, animated: true)
+//  }
+//}
