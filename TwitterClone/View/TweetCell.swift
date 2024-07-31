@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol TweetCellDelegate: class {
+  func handleProfileImageTapped()
+}
+
 class TweetCell: UICollectionViewCell {
   
   //MARK: - Properties
@@ -16,13 +20,25 @@ class TweetCell: UICollectionViewCell {
   }
   //tweet이 있을 경우에만 cell을 생성해주고 싶기 때문.
   
-  private let profileImageView: UIImageView = {
+  weak var delegate: TweetCellDelegate?
+  // 부모 자식 관계에서, retain cycle이 생길 수 있기 때문에 weak로 선언
+  //feedcontroller에서 강한 참조를 delegate에 하고 있고, cell class에서 feedcontroller로 강한 참조를 하고 있다.
+  //이 두개는 계속 참조가 되기 때문에 destroyed되지 못한다.
+  //delegate이 필요한 곳에서 약한 참조를 해줘야 하는구나 하고 이해하자.
+  
+  private lazy var profileImageView: UIImageView = {
     let iv = UIImageView()
     iv.contentMode = .scaleAspectFill
     iv.clipsToBounds = true
     iv.setDimensions(width: 48, height: 48)
     iv.layer.cornerRadius = 48 / 2
     iv.backgroundColor = .twitterBlue
+    
+    let tap = UITapGestureRecognizer(target: self, action: #selector(handleProfileImageTapped))
+    iv.addGestureRecognizer(tap)
+    iv.isUserInteractionEnabled = true
+    //userinteraction 활성화 true
+    
     return iv
   }()
   
@@ -116,6 +132,11 @@ class TweetCell: UICollectionViewCell {
   }
   
   //MARK: - Selectors
+  
+  @objc func handleProfileImageTapped() {
+    delegate?.handleProfileImageTapped()
+  }
+  
   @objc func handleCommentTapped() {
   }
   

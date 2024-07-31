@@ -22,7 +22,7 @@ class FeedController: UICollectionViewController {
   private var tweets = [Tweet](){
     didSet { collectionView.reloadData() }
   }
-
+  
   //MARK: - Lifecycle
   
   override func viewDidLoad() {
@@ -71,10 +71,14 @@ extension FeedController {
     return tweets.count
   }
   
+  
   override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! TweetCell
     
-    print("DEBUG: Index path is \(indexPath.row)")
+    cell.delegate = self
+    //내가 위임할게 라는 의미.
+    //선언을 해줘야 동작하겠지?
+    
     cell.tweet = tweets[indexPath.row]
     return cell
   }
@@ -82,6 +86,10 @@ extension FeedController {
   //컬렉션 뷰에서 셀을 재사용할 때, dequeueReusableCell 메서드가 반환하는 셀이 항상 TweetCell 타입임을 보장
   //nil을 반환할 가능성이 없다!!!
   //dequeueReusableCell 메서드는 항상 등록된 셀 타입을 반환하므로, 강제 언래핑(as!)을 통해 TweetCell로 안전하게 캐스팅
+  
+  override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    
+  }
 }
 //cell크기 동적 조절 / 프로토콜
 
@@ -92,3 +100,18 @@ extension FeedController: UICollectionViewDelegateFlowLayout {
     return CGSize(width: view.frame.width, height: 120)
   }
 }
+
+//MARK: - TweetCellDelegate
+extension FeedController: TweetCellDelegate {
+  func handleProfileImageTapped() {
+    let controller = ProfileController(collectionViewLayout: UICollectionViewFlowLayout())
+    navigationController?.pushViewController(controller, animated: true)
+  }
+}
+
+//extension FeedController : TweetCellDelegate {
+//  func handleProfileImageTapped() {
+//    let controller = ProfileController(collectionViewLayout: UICollectionViewLayout())
+//    navigationController?.pushViewController(controller, animated: true)
+//  }
+//}
