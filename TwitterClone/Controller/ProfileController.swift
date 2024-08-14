@@ -27,7 +27,7 @@ class ProfileController: UICollectionViewController {
 //MARK: - UICollectionViewDataSource
 
 extension ProfileController {
-  override func numberOfSections(in collectionView: UICollectionView) -> Int {
+  override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return 3
   }
   override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
