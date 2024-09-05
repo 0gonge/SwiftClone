@@ -56,6 +56,30 @@ class ProfileHeader: UICollectionReusableView {
     return button
   }()
   
+  private let fullnameLabel: UILabel = {
+    let label = UILabel()
+    label.font = UIFont.boldSystemFont(ofSize: 20)
+    label.text = "Song YeoGyeong"
+    return label
+  }()
+  
+  private let usernameLabel: UILabel = {
+    let label = UILabel()
+    label.font = UIFont.systemFont(ofSize: 16)
+    label.textColor = .lightGray
+    label.text = "@0gonge"
+    return label
+  }()
+  
+  private let bioLabel: UILabel = {
+    let label = UILabel()
+    label.font = UIFont.systemFont(ofSize: 16)
+    label.numberOfLines = 3
+    //세줄 이상 XX
+    label.text = "This is a user bio that will span more than one line for test purposes"
+    return label
+  }()
+  
   //MARK: - Lifecycle
   
   override init(frame: CGRect) {
@@ -73,6 +97,18 @@ class ProfileHeader: UICollectionReusableView {
     editProfileFollowButton.anchor(top: containerView.bottomAnchor, right: rightAnchor, paddingTop: 12, paddingRight: 12)
     editProfileFollowButton.setDimensions(width: 100, height: 36)
     editProfileFollowButton.layer.cornerRadius = 36 / 2
+    
+    let userDetailsStack = UIStackView(arrangedSubviews: [fullnameLabel, usernameLabel, bioLabel])
+    userDetailsStack.axis = .vertical
+    userDetailsStack.distribution = .fillProportionally
+    //distribution = 남는 공간 어떻게 할래?
+    //fillProportionally = 하위 뷰들이 자신들의 비율에 맞춰서 공간을 차지하게 만듬
+    //각각의 뷰가 자신의 고유 크기에 비례해서 스택뷰에서 공간을 지정해주는 느낌이라고 생각하자.
+    // 각각 뷰의 텍스트 길이가 다르기 때문에 설정해주는 옵션이라고 생각하자. 같은 크기 X
+    userDetailsStack.spacing = 4
+    
+    addSubview(userDetailsStack)
+    userDetailsStack.anchor(top: profileImageView.bottomAnchor, left: leftAnchor, right: rightAnchor, paddingTop:8, paddingLeft: 12, paddingRight: 12)
   }
   
   required init?(coder: NSCoder) {

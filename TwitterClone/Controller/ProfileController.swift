@@ -21,8 +21,16 @@ class ProfileController: UICollectionViewController {
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
+    navigationController?.navigationBar.barStyle = .black
+    //상태바의 배경색이 어두울 때, 텍스트는 흰색으로 표현이 된다.
     navigationController?.navigationBar.isHidden = true
+    
   }
+  
+  override var preferredStatusBarStyle: UIStatusBarStyle {
+    return .lightContent
+  }
+  //흠.. 근데 안된다
   
   //MARK: - Helpers
   
