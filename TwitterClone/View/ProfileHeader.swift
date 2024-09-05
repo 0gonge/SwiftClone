@@ -30,6 +30,22 @@ class ProfileHeader: UICollectionReusableView {
     return button
   }()
   
+  private let profileImageView: UIImageView = {
+    let iv = UIImageView()
+    iv.contentMode = .scaleAspectFit
+    iv.clipsToBounds = true
+    iv.backgroundColor = .lightGray
+    iv.layer.borderColor = UIColor.white.cgColor
+    iv.layer.borderWidth = 4
+    return iv
+  }()
+  //초기화는 클로저를 통해 실행이 되고 클로저의 결과가 porfileImageView에 할당된다.
+  // iv는 클로저 내에서 사용해 줄 임의의 변수
+  // clipsToBounds는 이미지뷰의 경계를 넘는 부분을 자를지의 여부다.
+  // 이미지가 로드되지 않았을 때를 위한 backgroundColor
+  // layer.borderColor는 cgColor를 요구한다.
+  
+  
   //MARK: - Lifecycle
   
   override init(frame: CGRect) {
@@ -37,6 +53,11 @@ class ProfileHeader: UICollectionReusableView {
     
     addSubview(containerView)
     containerView.anchor(top: topAnchor, left: leftAnchor, right: rightAnchor, height: 108)
+    
+    addSubview(profileImageView)
+    profileImageView.anchor(top: containerView.bottomAnchor, left: leftAnchor, paddingTop: -24, paddingLeft: 8)
+    profileImageView.setDimensions(width: 80, height: 80)
+    profileImageView.layer.cornerRadius = 80/2
   }
 
   required init?(coder: NSCoder) {
