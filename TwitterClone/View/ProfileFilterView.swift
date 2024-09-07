@@ -53,6 +53,12 @@ extension ProfileFilterView: UICollectionViewDataSource {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ProfileFilterCell
     return cell
   }
+  //dequeueReusableCell(withReuseIdentifier:for:): 컬렉션 뷰에서 화면에서 벗어난 셀을 재사용할 때 사용
+  //for indexpath : 요청한 셀의 인덱스 번호
+  //as! ProfileFilterCell : 재사용된 셀을 내가 커스텀해 준 셀로 지정을 해주겠다! ->컬렉션 뷰에 등록된 클래스와 일치해야 오류가 발생하지 않는다.
+  //as! 는 왜 사용하지? dequeueReusableCell(withReuseIdentifier:for:) 메서드가 기본적으로 UICollectionViewCell 타입의 객체를 반환하기 때문 여기에서는 내가 커스터마이징 해준 Cell로 반환을 해주고 있음
+  //as! : 타입 캐스팅을 할 때 사용하는 강제 캐스팅 연산자 / 기대하고 있는 타입이 ProfileFilterCell이라고 확신할 때 사용. 만약 셀이 실제로 ProfileFilterCell이 아니라면 앱이 실행 중에 크래시가 발생, 컬렉션 뷰에서는 보장이 되어있다고 생각하자. 
+  
 }
 //MARK - UICollectionViewDelegate
 
