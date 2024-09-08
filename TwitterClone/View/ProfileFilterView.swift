@@ -58,10 +58,15 @@ class ProfileFilterView: UIView {
     collectionView.register(ProfileFilterCell.self, forCellWithReuseIdentifier: reuseIdentifier)
     
     let selectedIdexPath = IndexPath(row: 0, section: 0)
+    //첫번째 섹션의 첫번째 셀
+    
     collectionView.selectItem(at: selectedIdexPath, animated: true, scrollPosition: .left)
+    //.left : 선택한 셀이 컬렉션 뷰에서 왼쪽으로 스크롤 되어 보이도록 지정.
+    //선택된 셀을 뷰의 특정 위치로 이동시키는 것이 가능하다
     
     addSubview(collectionView)
     collectionView.addConstraintsToFillView(self)
+    //collectionView가 부모 뷰(self)의 크기에 맞게 제약 조건을 추가하여 전체 화면을 채우도록 설정하는 메서드
   }
   
   
@@ -111,6 +116,8 @@ extension ProfileFilterView: UICollectionViewDelegate {
 extension ProfileFilterView: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     let count = CGFloat(ProfileFilterOptions.allCases.count)
+    //열거형의 모든 케이스를 가져와 그 개수를 계산하고, 그 개수를 CGFloat 타입으로 변환한 후, 각 셀의 크기를 계산하기 위한 값을 설정하는 코드 아래에 CGSize와의 호환을 위함.
+    // count: allCases는 배열이므로, 이 배열의 count 속성은 배열에 있는 항목의 개수를 반환
     return CGSize(width: frame.width / count, height: frame.height)
   }
   //각 컬렉션뷰 셀의 크기를 설정해주고 있다. IndexPath : 현재 크기를 설정할 아이템의 위치 정보.
