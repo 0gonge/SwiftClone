@@ -9,8 +9,14 @@ import UIKit
 
 private let reuseIdentifier = "ProfileFilterCell"
 
+protocol ProfileFilterViewDelegate: class {
+  func filterView(_ view: ProfileFilterView, didSelect IndexPath: IndexPath)
+}
+
 class ProfileFilterView: UIView {
   //MARK: - Properties
+  
+  weak var delegate: ProfileFilterViewDelegate?
   
   lazy var collectionView: UICollectionView = {
     let layout = UICollectionViewFlowLayout()
@@ -63,17 +69,28 @@ extension ProfileFilterView: UICollectionViewDataSource {
 //MARK - UICollectionViewDelegate
 
 extension ProfileFilterView: UICollectionViewDelegate {
-  
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    delegate?.filterView(self, didSelect: indexPath)
+  }
 }
 
-//MARK - UICollectionViewDelegateFlowLayout
+//아이템이 선택되었을 때의 동작이나 스크롤등을 처리할 때 사용.
+//didSelectItemAt : 아이템이 선택되었을 때 호출
+//willDisplay:forItemAt: 셀이나 헤더/푸터가 화면에 나타나기 직전에 호출
 
+//MARK - UICollectionViewDelegateFlowLayout
+//컬렉셤 뷰 레이아웃을 커스터마이징 할 수 있는 부분이다.
+//아이템 셀의 크기나 간격 등등을 설정해주는 것이 가능하다.
 extension ProfileFilterView: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     return CGSize(width: frame.width / 3, height: frame.height)
   }
+  //각 컬렉션뷰 셀의 크기를 설정해주고 있다. IndexPath : 현재 크기를 설정할 아이템의 위치 정보.
+  //frame.width의 3등분. 높이는 화면 전체.
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
     return 0
   }
+  //같은 행에 있는 셀들 사이의 최소 간격 설정.
+  
 }
