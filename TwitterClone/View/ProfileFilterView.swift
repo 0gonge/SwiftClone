@@ -56,6 +56,10 @@ class ProfileFilterView: UIView {
     super.init(frame: frame)
     
     collectionView.register(ProfileFilterCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+    
+    let selectedIdexPath = IndexPath(row: 0, section: 0)
+    collectionView.selectItem(at: selectedIdexPath, animated: true, scrollPosition: .left)
+    
     addSubview(collectionView)
     collectionView.addConstraintsToFillView(self)
   }
@@ -69,13 +73,16 @@ class ProfileFilterView: UIView {
 //MARK - UICollectionViewDataSource
 extension ProfileFilterView: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return 3
+    return ProfileFilterOptions.allCases.count
+    //3이면, 구조체에서 업데이터 해주면 이것도 업데이트를 해줘야 한다....
+    
   }
+  
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ProfileFilterCell
     
     let option = ProfileFilterOptions(rawValue: indexPath.row)
-    print("DEBUG: Option is \(String(describing: option?.description))")
+    cell.option = option
     
     return cell
   }
@@ -103,7 +110,8 @@ extension ProfileFilterView: UICollectionViewDelegate {
 //아이템 셀의 크기나 간격 등등을 설정해주는 것이 가능하다.
 extension ProfileFilterView: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    return CGSize(width: frame.width / 3, height: frame.height)
+    let count = CGFloat(ProfileFilterOptions.allCases.count)
+    return CGSize(width: frame.width / count, height: frame.height)
   }
   //각 컬렉션뷰 셀의 크기를 설정해주고 있다. IndexPath : 현재 크기를 설정할 아이템의 위치 정보.
   //frame.width의 3등분. 높이는 화면 전체.
