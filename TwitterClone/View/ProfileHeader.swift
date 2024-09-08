@@ -143,11 +143,26 @@ class ProfileHeader: UICollectionReusableView {
 extension ProfileHeader: ProfileFilterViewDelegate {
   func filterView(_ view: ProfileFilterView, didSelect IndexPath: IndexPath) {
     guard let cell = view.collectionView.cellForItem(at: IndexPath) as? ProfileFilterCell else {return}
+    //사용자가 ProfileFilterView에서 특정 셀을 선택했을 때 호출
+    //guard : 조건이 충족되지 않으면 메서드를 종료해줌. 그렇기 때문에 profileFilterCell이 캐스팅되지 않으면, nil을 반환을 해주고 else블록이 실행되면서 return으로 매서드를 종료한다.
+    //프로토콜과 extension의 조합!!
     
     let xPosition = cell.frame.origin.x
     UIView.animate(withDuration: 0.3) {
       self.underlineView.frame.origin.x = xPosition
     }
+    //선택된 셀을 가져와서 그 셀의 정보를 활용
+    //선택된 셀의 x축 좌표를 가져온다.
+    //cell.frame.origin.x: 선택된 셀의 프레임에서 X축의 시작 위치를 가져옴 즉, 셀의 좌측 상단이 화면에서 어느 위치에 있는지 반환
+    //이 값을 이용해 나중에 underlineView의 위치를 해당 셀의 아래로 이동
+    //underlineView의 X축 위치를 선택된 셀 아래로 부드럽게 이동시키는 애니메이션을 실행
+    //0.3초의 간격으로 셀 아래로 부드럽게 이동.
+    //underlineView를 x축 위치를 선택된 셀의 x축 좌표로 설정한다. 즉, 선택된 셀 바로 아래로 underlineView가 이동. 
+    //self가 뭐지 ㅋㅋ 클로저 내부에서 현재 클래스의 속성에 접근 할 때 self를 명시적으로 사용해야 한다. 인스턴스가 클로저 내부에서 사용이 됨을 명확이 해주는 것임!
+    //클래스 내부에서 속성과 메서드가 이름 충돌할 때: 메서드 내부에서 메서드 파라미터 이름과 클래스 속성 이름이 동일할 때, self를 사용하여 클래스의 속성임을 구분
+    //self.underlineView라고 명시하지 않으면, 컴파일러는 이 속성이 현재 인스턴스의 속성임을 알지 못함
   }
+  //profileFilterView에서 셀이 선택되었을 때의 동작을 정의해주고 있는 부분이다.
+  // ProfileHeader 클래스에 ProfileFilterViewDelegate 프로토콜(이건 FilterView에 프로토콜을 구현해두었음)을 채택하고, 그 프로토콜의 메서드를 구현
 }
 
