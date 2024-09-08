@@ -9,8 +9,30 @@ import UIKit
 
 private let reuseIdentifier = "ProfileFilterCell"
 
+protocol ProfileFilterViewDelegate: AnyObject {
+  func filterView(_ view: ProfileFilterView, didSelect IndexPath: IndexPath)
+}
+//특정 클래스가 필터뷰에서 발생하는 이벤트(셀선택과 같은게 있겠지)를 처리할 수 있도록 하기 위한 약속을 정의해주는 거라고 이해하자.
+//protocol: 클래스나 구조체가 반드시 구현해야 하는 매서드나 속성 등을 정의한 일종의 청사진이다.
+//프로토콜을 준수하는 클래스는 프로토콜에 정의된 메서드를 반드시 구현해야 한다.
+//AnyObject: 프로토콜이 클래스 타입에서만 채택될 수 있음을 나타냄
+//즉, 구조체나 열거형은 이 프로토콜을 채택할 수 없다!
+//이를 통해 weak 참조를 사용할 수 있게 함. 프로토콜을 클래스 타입으로 제한하는 이유? 순환참조 문제를 방지하기 위함이다.
+//프로토콜 안 메서드 : 셀을 선택했을 때 호출된다. 그래서 결론적으로는 이 프로토콜을 준수하는 클래스가 이 메서드를 구현함으로써, 필터 선택을 할 때 발생하는 동작을 정의해 줄 수 있는 것이다.
+//그러면 프로토콜을 왜 쓰지? 다형성 때문이다. 다양한 클래스에서 이 동작을 처리할 수 있게 된다.그러면 어떻게 되겠나? 다른 클래스간의 결합도가 낮아지겠지!(다양한 클래스나 구조체에서 공통적인 작업을 요구할 때!!)
+
+
 class ProfileFilterView: UIView {
   //MARK: - Properties
+  
+  weak var delegate: ProfileFilterViewDelegate?
+  // 약한참조 weak : 참조하고 있는 객체를 소유하는 개념이 아니라서 참조하고 있는 객체가 메모리에서 해제가 되어도 자동으로 nil로 설정이 된다.
+  //순환참조 문제를 방지하기 위해 사용
+  //순환참조란? 두 객체가 참조를 할 때 메모리에서 해제되지 않고 계속해서 남아있게 되는 상황이다. 이를 방지하기 위해 weak를 해서 메모리 관리를 안전하게 한다.
+  //nil처리: weak으로 선언된 속성은 가리키고 있던 객체가 메모리에서 해제가 되면, 자동으로 nil로 변환이 되기 때문에 옵셔널로 선언을 해준다.
+  //그래서 delegate는 옵셔널 타입으로 선언을 해 준 것이다!
+  //delegate를 통해서 다른 객체에거 특정한 작업을 위임할 수 있도록 설정.
+  
   
   lazy var collectionView: UICollectionView = {
     let layout = UICollectionViewFlowLayout()
@@ -34,8 +56,17 @@ class ProfileFilterView: UIView {
     super.init(frame: frame)
     
     collectionView.register(ProfileFilterCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+    
+    let selectedIdexPath = IndexPath(row: 0, section: 0)
+    //첫번째 섹션의 첫번째 셀
+    
+    collectionView.selectItem(at: selectedIdexPath, animated: true, scrollPosition: .left)
+    //.left : 선택한 셀이 컬렉션 뷰에서 왼쪽으로 스크롤 되어 보이도록 지정.
+    //선택된 셀을 뷰의 특정 위치로 이동시키는 것이 가능하다
+    
     addSubview(collectionView)
     collectionView.addConstraintsToFillView(self)
+    //collectionView가 부모 뷰(self)의 크기에 맞게 제약 조건을 추가하여 전체 화면을 채우도록 설정하는 메서드
   }
   
   
@@ -47,10 +78,17 @@ class ProfileFilterView: UIView {
 //MARK - UICollectionViewDataSource
 extension ProfileFilterView: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return 3
+    return ProfileFilterOptions.allCases.count
+    //3이면, 구조체에서 업데이터 해주면 이것도 업데이트를 해줘야 한다....
+    
   }
+  
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ProfileFilterCell
+    
+    let option = ProfileFilterOptions(rawValue: indexPath.row)
+    cell.option = option
+    
     return cell
   }
   //dequeueReusableCell(withReuseIdentifier:for:): 컬렉션 뷰에서 화면에서 벗어난 셀을 재사용할 때 사용
@@ -63,17 +101,31 @@ extension ProfileFilterView: UICollectionViewDataSource {
 //MARK - UICollectionViewDelegate
 
 extension ProfileFilterView: UICollectionViewDelegate {
-  
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    delegate?.filterView(self, didSelect: indexPath)
+  }
 }
 
-//MARK - UICollectionViewDelegateFlowLayout
+//아이템이 선택되었을 때의 동작이나 스크롤등을 처리할 때 사용.
+//didSelectItemAt : 아이템이 선택되었을 때 호출
+//willDisplay:forItemAt: 셀이나 헤더/푸터가 화면에 나타나기 직전에 호출
 
+//MARK - UICollectionViewDelegateFlowLayout
+//컬렉셤 뷰 레이아웃을 커스터마이징 할 수 있는 부분이다.
+//아이템 셀의 크기나 간격 등등을 설정해주는 것이 가능하다.
 extension ProfileFilterView: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    return CGSize(width: frame.width / 3, height: frame.height)
+    let count = CGFloat(ProfileFilterOptions.allCases.count)
+    //열거형의 모든 케이스를 가져와 그 개수를 계산하고, 그 개수를 CGFloat 타입으로 변환한 후, 각 셀의 크기를 계산하기 위한 값을 설정하는 코드 아래에 CGSize와의 호환을 위함.
+    // count: allCases는 배열이므로, 이 배열의 count 속성은 배열에 있는 항목의 개수를 반환
+    return CGSize(width: frame.width / count, height: frame.height)
   }
+  //각 컬렉션뷰 셀의 크기를 설정해주고 있다. IndexPath : 현재 크기를 설정할 아이템의 위치 정보.
+  //frame.width의 3등분. 높이는 화면 전체.
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
     return 0
   }
+  //같은 행에 있는 셀들 사이의 최소 간격 설정.
+  
 }
