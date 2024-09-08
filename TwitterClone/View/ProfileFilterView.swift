@@ -73,6 +73,10 @@ extension ProfileFilterView: UICollectionViewDataSource {
   }
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ProfileFilterCell
+    
+    let option = ProfileFilterOptions(rawValue: indexPath.row)
+    print("DEBUG: Option is \(String(describing: option?.description))")
+    
     return cell
   }
   //dequeueReusableCell(withReuseIdentifier:for:): 컬렉션 뷰에서 화면에서 벗어난 셀을 재사용할 때 사용
