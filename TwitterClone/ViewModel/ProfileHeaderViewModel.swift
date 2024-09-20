@@ -5,7 +5,8 @@
 //  Created by 송여경 on 9/8/24.
 //
 
-import Foundation
+import UIKit
+
 
 enum ProfileFilterOptions: Int, CaseIterable {
   case tweets //0
@@ -34,3 +35,38 @@ enum ProfileFilterOptions: Int, CaseIterable {
 // print(option.rawValue) // 0
 // print(option.description) // "Tweets"
 
+struct ProfileHeaderViewModel {
+  
+  private let user: User
+  
+  var followerString: NSAttributedString? {
+    return attributedText(withValue: 0, text: "followers")
+  }
+  
+  var followingString: NSAttributedString? {
+    return attributedText(withValue: 2, text: "following")
+  }
+  
+  var actionButtonTitle: String {
+    //만약 유저가 자기자신이라면 edit profile이 떠야 하고,
+    //아닐 경우, following/ not following 이 떠야 한다.
+    if user.isCurrentUser {
+      return "Edit Profile"
+    } else {
+      return "Follow"
+    }
+  }
+  
+  init(user: User){
+    self.user = user
+  }
+  
+  fileprivate func attributedText(withValue value: Int, text: String) -> NSAttributedString {
+    let attributedTitle = NSMutableAttributedString(string: "\(value)", attributes: [.font: UIFont.boldSystemFont(ofSize: 14)])
+    
+    attributedTitle.append(NSAttributedString(string: "\(text)", attributes: [.font: UIFont.systemFont(ofSize: 14), .foregroundColor:UIColor.lightGray]))
+    
+    return attributedTitle
+  }
+  
+}

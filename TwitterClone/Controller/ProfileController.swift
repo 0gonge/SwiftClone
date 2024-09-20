@@ -12,11 +12,28 @@ private let headerIdentifier = "ProfileHeader"
 
 class ProfileController: UICollectionViewController {
   //MARK: - Properties
+  private let user: User
   
   //MARK: - Lifecycle
+  
+  init(user: User) {
+    self.user = user
+    super.init(collectionViewLayout: UICollectionViewFlowLayout())
+  }
+  //profileController인스턴스를 초기화 할 때, 해당 화면에 표시할 사용자 user데이터를 외부로부터 전달받아서 사용한다.
+  //이 사용자는 프로필 화면에 필요한 정보를 제공한다.
+  //전달받은 user객체를 profilecontroller의 user속성에 저장한다.
+  //그리고 부모 클래스인 UICollectionViewLayout의 초기화 메서드를 호출하여, 컬렉션 뷰를 초기화 한다. 중요함!
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+   
   override func viewDidLoad() {
     super.viewDidLoad()
     configureCollectionView()
+    
+    print("DEBUG: User is \(user.username)")
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -59,6 +76,7 @@ extension ProfileController {
 extension ProfileController {
   override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
     let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerIdentifier, for: indexPath) as! ProfileHeader
+    header.user = user
     return header
   }
 }

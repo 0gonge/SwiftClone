@@ -102,12 +102,22 @@ extension FeedController: UICollectionViewDelegateFlowLayout {
 }
 
 //MARK: - TweetCellDelegate
+
 extension FeedController: TweetCellDelegate {
-  func handleProfileImageTapped() {
-    let controller = ProfileController(collectionViewLayout: UICollectionViewFlowLayout())
+  func handleProfileImageTapped(_ cell: TweetCell) {
+    guard let user = cell.tweet?.user else { return }
+    let controller = ProfileController(user: user)
     navigationController?.pushViewController(controller, animated: true)
   }
 }
+
+//여기에서 tweetCellDelegate프로토콜을 구현해주었다.
+//TweetCell에서 발생한 프로필 이미지 탭 이벤트를 처리해주는 역할을 FeedController에서 하게 된다.
+//함수 구현 해주고, user 객체를 안전하게 추출해준다. tweet속성에 접근해서.
+//그리고 profileController로 user데이터를 넘겨준다.
+//프로필을 보려는 사용자가 누구인지 알 수 있도록 user객체를 초기화 시에 전달해준다.
+//그리고 navigationcontroller에 새로 생성한 profilecontroller를 추가해주고, 이를 화면에 표시한다.
+//결국 TweetCell과 FeedController과의 강한 의존성이 없어지게 된다. 
 
 //extension FeedController : TweetCellDelegate {
 //  func handleProfileImageTapped() {

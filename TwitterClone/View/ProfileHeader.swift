@@ -9,6 +9,17 @@ import UIKit
 
 class ProfileHeader: UICollectionReusableView {
   //MARK: - Properties
+  
+  var user: User? {
+    didSet { configure() }
+  }
+  //user는 사용자의 데이터를 보유하는 중요한 역할을 한다.
+  //사용자 프로필 정보를 업데이트 할 때 사용한다.
+  //user속성의 값이 설정되거나 변경될 때마다 didSet실행되어 configure()메서드를 호출한다.
+  //즉, user의 값이 변경될 때마다 자동으로 뷰를 업데이트 하는 것이 가능해진다.
+  //configure - 유저 속성의 데이터를 뷰에 반영해준다.
+  //내가 ViewModel에서 적용해준 것 들을 follwerString, 과 같은 데이터들을 이 메서드에서 사용해줄 수 있는 것이다.
+  
   private let filterBar = ProfileFilterView()
   
   private lazy var containerView: UIView = {
@@ -87,6 +98,36 @@ class ProfileHeader: UICollectionReusableView {
     return view
   }()
   
+  private let followingLabel: UILabel = {
+    let label = UILabel()
+    
+    label.text = "0 Following"
+    
+    let followTap = UITapGestureRecognizer(target: self, action: #selector(handleFollowesTapped))
+    label.isUserInteractionEnabled = true
+    //이부분은 레이블이 사용자의 인터랙션을 받을 수 있도록 허용해주는 것이다.
+    //기본적으로 UILabel은 사용자의 인터렉션을 받지 않기 때문에 이를 활성화 시켜주려면 이렇게 허용을 해 주어야 한다.
+    //Gesture인식이 가능해진다.
+    label.addGestureRecognizer(followTap)
+    //앞에서 생성해준 followTab을 followingLabel에 추가를 해준다.
+    //사용자가 레이블 탭햇을 때 followTap이 동작, 버튼 정의해준 액션이 실행됨
+    return label
+  }()
+//UITapGestureRecongnizer: 사용자가 특정 부분을 탭했을 때 이를 감지해준다.
+  //동작이 발생했을 때 호출할 메서드가 속한 객체 저장. self
+  //사용자가 레이블을 탭했을 때 실행될 메서드 지정
+  
+  private let followersLabel: UILabel = {
+    let label = UILabel()
+    
+    label.text = "2 Followers"
+    
+    let followTap = UITapGestureRecognizer(target: self, action: #selector(handleFolloingTapped))
+    label.addGestureRecognizer(followTap)
+    
+    return label
+  }()
+  
   //MARK: - Lifecycle
   
   override init(frame: CGRect) {
@@ -119,6 +160,14 @@ class ProfileHeader: UICollectionReusableView {
     addSubview(userDetailsStack)
     userDetailsStack.anchor(top: profileImageView.bottomAnchor, left: leftAnchor, right: rightAnchor, paddingTop:8, paddingLeft: 12, paddingRight: 12)
     
+    let followStack = UIStackView(arrangedSubviews: [followingLabel, followersLabel])
+    followStack.axis = .horizontal
+    followStack.spacing = 8
+    followStack.distribution = .fillEqually
+    
+    addSubview(followStack)
+    followStack.anchor(top: userDetailsStack.bottomAnchor, left: leftAnchor, paddingTop: 8, paddingLeft: 12)
+    
     addSubview(filterBar)
     filterBar.anchor(left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, height: 50)
     
@@ -137,6 +186,33 @@ class ProfileHeader: UICollectionReusableView {
   @objc func handleEditProfileFollow() {
     
   }
+  
+  @objc func handleFollowesTapped() {
+    
+  }
+  @objc func handleFolloingTapped() {
+    
+  }
+  
+  //MARK: - Helpers
+  
+  func configure() {
+    guard let user = user else { return }
+    //user가 있는지 없는지를 판단.
+    //user가 nil이면 실행을 중단하고, nil이 아니면 아래 코드 계속
+    //user가 nil일 경우, 더이상 UI업데이트가 필요하지 않으므로 return으로 함수 그냥 종료
+    let viewModel = ProfileHeaderViewModel(user: user)
+    //user데이터를 사용해서 profileHeaderViewModel 인스턴스를 생성해주는 부분이다.
+    //viewModel을 사용하면, ProfileHeader에서 user데이터를 직접 처리하지 않고, 뷰모델을 통해서 간접적으로 데이터를 처리해준다.
+    
+    profileImageView.sd_setImage(with: user.profileImageUrl)
+    
+    editProfileFollowButton.setTitle(viewModel.actionButtonTitle, for: .normal)
+    followingLabel.attributedText = viewModel.followerString
+    followersLabel.attributedText = viewModel.followerString
+    //viewModel에서 생성한 followingString을 attrivutedText에 할당해줌.
+  }
+  
 }
 //MARK: - ProfileFilterViewDelegate
 
