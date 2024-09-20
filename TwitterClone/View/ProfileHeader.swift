@@ -207,6 +207,7 @@ class ProfileHeader: UICollectionReusableView {
     
     profileImageView.sd_setImage(with: user.profileImageUrl)
     
+    editProfileFollowButton.setTitle(viewModel.actionButtonTitle, for: .normal)
     followingLabel.attributedText = viewModel.followerString
     followersLabel.attributedText = viewModel.followerString
     //viewModel에서 생성한 followingString을 attrivutedText에 할당해줌.
