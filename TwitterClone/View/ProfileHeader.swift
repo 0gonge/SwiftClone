@@ -9,6 +9,17 @@ import UIKit
 
 class ProfileHeader: UICollectionReusableView {
   //MARK: - Properties
+  
+  var user: User? {
+    didSet { configure() }
+  }
+  //user는 사용자의 데이터를 보유하는 중요한 역할을 한다.
+  //사용자 프로필 정보를 업데이트 할 때 사용한다.
+  //user속성의 값이 설정되거나 변경될 때마다 didSet실행되어 configure()메서드를 호출한다.
+  //즉, user의 값이 변경될 때마다 자동으로 뷰를 업데이트 하는 것이 가능해진다.
+  //configure - 유저 속성의 데이터를 뷰에 반영해준다.
+  //내가 ViewModel에서 적용해준 것 들을 follwerString, 과 같은 데이터들을 이 메서드에서 사용해줄 수 있는 것이다.
+  
   private let filterBar = ProfileFilterView()
   
   private lazy var containerView: UIView = {
@@ -182,6 +193,23 @@ class ProfileHeader: UICollectionReusableView {
   @objc func handleFolloingTapped() {
     
   }
+  
+  //MARK: - Helpers
+  
+  func configure() {
+    guard let user = user else { return }
+    //user가 있는지 없는지를 판단.
+    //user가 nil이면 실행을 중단하고, nil이 아니면 아래 코드 계속
+    //user가 nil일 경우, 더이상 UI업데이트가 필요하지 않으므로 return으로 함수 그냥 종료
+    let viewModel = ProfileHeaderViewModel(user: user)
+    //user데이터를 사용해서 profileHeaderViewModel 인스턴스를 생성해주는 부분이다.
+    //viewModel을 사용하면, ProfileHeader에서 user데이터를 직접 처리하지 않고, 뷰모델을 통해서 간접적으로 데이터를 처리해준다.
+    
+    followingLabel.attributedText = viewModel.followerString
+    followersLabel.attributedText = viewModel.followerString
+    //viewModel에서 생성한 followingString을 attrivutedText에 할당해줌.
+  }
+  
 }
 //MARK: - ProfileFilterViewDelegate
 

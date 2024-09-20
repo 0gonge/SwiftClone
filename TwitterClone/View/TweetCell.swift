@@ -8,8 +8,13 @@
 import UIKit
 
 protocol TweetCellDelegate: class {
-  func handleProfileImageTapped()
+  func handleProfileImageTapped(_ cell: TweetCell)
 }
+//TweetCell에서 발생하는 이벤트를 처리할 수 있도록 요구사항을 정의하는 프로토콜
+//클래스에서만 채택 가능 (구조체나 열거형에서는 사용할 수 없음)
+//이렇게 클래스 전용 프로토콜로 설정을 해준 이유는 메모리 관리를 위한 weak 참조를 가능하게 하기 위해서다.
+//순환참조 방지를 위해 클래스 전용 프로토콜을 사용해준다.
+//TweetCell을 파라미터로 받아, 어떤 셀에서 프로필 이미지가 클릭되었는지 알 수 있다.
 
 class TweetCell: UICollectionViewCell {
   
@@ -134,7 +139,7 @@ class TweetCell: UICollectionViewCell {
   //MARK: - Selectors
   
   @objc func handleProfileImageTapped() {
-    delegate?.handleProfileImageTapped()
+    delegate?.handleProfileImageTapped(self)
   }
   
   @objc func handleCommentTapped() {

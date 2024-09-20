@@ -5,7 +5,7 @@
 //  Created by 송여경 on 9/8/24.
 //
 
-import Foundation
+import UIKit
 
 enum ProfileFilterOptions: Int, CaseIterable {
   case tweets //0
@@ -34,3 +34,28 @@ enum ProfileFilterOptions: Int, CaseIterable {
 // print(option.rawValue) // 0
 // print(option.description) // "Tweets"
 
+struct ProfileHeaderViewModel {
+  
+  private let user: User
+  
+  var followerString: NSAttributedString? {
+    return attributedText(withValue: 0, text: "followers")
+  }
+  
+  var followingString: NSAttributedString? {
+    return attributedText(withValue: 2, text: "following")
+  }
+  
+  init(user: User){
+    self.user = user
+  }
+  
+  fileprivate func attributedText(withValue value: Int, text: String) -> NSAttributedString {
+    let attributedTitle = NSMutableAttributedString(string: "\(value)", attributes: [.font: UIFont.boldSystemFont(ofSize: 14)])
+    
+    attributedTitle.append(NSAttributedString(string: "\(text)", attributes: [.font: UIFont.systemFont(ofSize: 14), .foregroundColor:UIColor.lightGray]))
+    
+    return attributedTitle
+  }
+  
+}
