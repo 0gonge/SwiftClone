@@ -87,6 +87,36 @@ class ProfileHeader: UICollectionReusableView {
     return view
   }()
   
+  private let followingLabel: UILabel = {
+    let label = UILabel()
+    
+    label.text = "0 Following"
+    
+    let followTap = UITapGestureRecognizer(target: self, action: #selector(handleFollowesTapped))
+    label.isUserInteractionEnabled = true
+    //이부분은 레이블이 사용자의 인터랙션을 받을 수 있도록 허용해주는 것이다.
+    //기본적으로 UILabel은 사용자의 인터렉션을 받지 않기 때문에 이를 활성화 시켜주려면 이렇게 허용을 해 주어야 한다.
+    //Gesture인식이 가능해진다.
+    label.addGestureRecognizer(followTap)
+    //앞에서 생성해준 followTab을 followingLabel에 추가를 해준다.
+    //사용자가 레이블 탭햇을 때 followTap이 동작, 버튼 정의해준 액션이 실행됨
+    return label
+  }()
+//UITapGestureRecongnizer: 사용자가 특정 부분을 탭했을 때 이를 감지해준다.
+  //동작이 발생했을 때 호출할 메서드가 속한 객체 저장. self
+  //사용자가 레이블을 탭했을 때 실행될 메서드 지정
+  
+  private let followersLabel: UILabel = {
+    let label = UILabel()
+    
+    label.text = "2 Followers"
+    
+    let followTap = UITapGestureRecognizer(target: self, action: #selector(handleFolloingTapped))
+    label.addGestureRecognizer(followTap)
+    
+    return label
+  }()
+  
   //MARK: - Lifecycle
   
   override init(frame: CGRect) {
@@ -119,6 +149,14 @@ class ProfileHeader: UICollectionReusableView {
     addSubview(userDetailsStack)
     userDetailsStack.anchor(top: profileImageView.bottomAnchor, left: leftAnchor, right: rightAnchor, paddingTop:8, paddingLeft: 12, paddingRight: 12)
     
+    let followStack = UIStackView(arrangedSubviews: [followingLabel, followersLabel])
+    followStack.axis = .horizontal
+    followStack.spacing = 8
+    followStack.distribution = .fillEqually
+    
+    addSubview(followStack)
+    followStack.anchor(top: userDetailsStack.bottomAnchor, left: leftAnchor, paddingTop: 8, paddingLeft: 12)
+    
     addSubview(filterBar)
     filterBar.anchor(left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, height: 50)
     
@@ -135,6 +173,13 @@ class ProfileHeader: UICollectionReusableView {
   }
   
   @objc func handleEditProfileFollow() {
+    
+  }
+  
+  @objc func handleFollowesTapped() {
+    
+  }
+  @objc func handleFolloingTapped() {
     
   }
 }
