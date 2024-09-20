@@ -205,6 +205,8 @@ class ProfileHeader: UICollectionReusableView {
     //user데이터를 사용해서 profileHeaderViewModel 인스턴스를 생성해주는 부분이다.
     //viewModel을 사용하면, ProfileHeader에서 user데이터를 직접 처리하지 않고, 뷰모델을 통해서 간접적으로 데이터를 처리해준다.
     
+    profileImageView.sd_setImage(with: user.profileImageUrl)
+    
     followingLabel.attributedText = viewModel.followerString
     followersLabel.attributedText = viewModel.followerString
     //viewModel에서 생성한 followingString을 attrivutedText에 할당해줌.
