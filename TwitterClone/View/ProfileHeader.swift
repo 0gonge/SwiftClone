@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol ProfileHeaderDelegate: class {
+  func handleDismissal()
+}
+
 class ProfileHeader: UICollectionReusableView {
   //MARK: - Properties
   
@@ -19,7 +23,7 @@ class ProfileHeader: UICollectionReusableView {
   //즉, user의 값이 변경될 때마다 자동으로 뷰를 업데이트 하는 것이 가능해진다.
   //configure - 유저 속성의 데이터를 뷰에 반영해준다.
   //내가 ViewModel에서 적용해준 것 들을 follwerString, 과 같은 데이터들을 이 메서드에서 사용해줄 수 있는 것이다.
-  
+  weak var delegate: ProfileHeaderDelegate?
   private let filterBar = ProfileFilterView()
   
   private lazy var containerView: UIView = {
@@ -180,7 +184,7 @@ class ProfileHeader: UICollectionReusableView {
   }
   //MARK: -
   @objc func handleDismissal() {
-    
+    delegate?.handleDismissal()
   }
   
   @objc func handleEditProfileFollow() {

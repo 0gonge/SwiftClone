@@ -30,6 +30,14 @@ class FeedController: UICollectionViewController {
     configureUI()
     fetchTweets()
   }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    navigationController?.navigationBar.isHidden = false
+  }
+  
+  //view pop되었을 때, navigationbar보이게 해주기 위함
+  
   //MARK: - API
   
   func fetchTweets(){
