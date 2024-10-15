@@ -20,4 +20,4 @@ let REF_USERS = DB_REF.child("users")
 //나는 _ 로 단어들을 분리해주고자 한다. - 변수명
 let REF_TWEETS = DB_REF.child("tweets")
 //데이터베이스에 tweets의 child를 만들어줌.
-
+let REF_USER_TWEETS = DB_REF.child("user-tweets")

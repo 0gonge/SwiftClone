@@ -24,7 +24,15 @@ struct TweetService {
      "caption": caption] as [String: Any]
     //Swift는 딕셔너리의 모든 값이 동일한 타입일 것을 요구하기 때문에, 값들이 혼합된 타입일 경우 [String: Any]로 캐스팅해야 한다는 것을 잊지 말자.
     
-    REF_TWEETS.childByAutoId().updateChildValues(values, withCompletionBlock: completion)
+    let ref = REF_TWEETS.childByAutoId()
+    
+    REF_TWEETS.childByAutoId().updateChildValues(values, withCompletionBlock: { (err,  ref) in
+      //이 부분에서 tweet upload가 완료되면, user-tweet structure가 진행된다.
+      guard let tweetID = ref.key else {return}
+      //새로 생성된 트윗의 고유 ID
+      REF_USER_TWEETS.child(uid).updateChildValues([tweetID: 1], withCompletionBlock: completion)
+      //tweetID 가 1이라는 건 단순한 존재 여부, 이 작업이 완료 되면 completion
+    })
   }
   //completion이 여기에 매치된다.
   
