@@ -77,6 +77,7 @@ extension ProfileController {
   override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
     let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerIdentifier, for: indexPath) as! ProfileHeader
     header.user = user
+    header.delegate = self
     return header
   }
 }
@@ -92,3 +93,12 @@ extension ProfileController: UICollectionViewDelegateFlowLayout {
     return CGSize(width: view.frame.width, height: 120)
   }
 }
+//MARK: - ProfileHeaderDelegate
+
+extension ProfileController: ProfileHeaderDelegate {
+  func handleDismissal() {
+    print("DEBUG: HandleDismiss profile from profileController .. ")
+    navigationController?.popViewController(animated: true)
+  }
+}
+//navigation관련 로직은 UIViewController를 상속받고 있는 ProfileController에서 해주도록 명확하게 extention으로 구현
