@@ -83,6 +83,8 @@ extension ProfileController {
     return cell
   }
 }
+//cell.tweet = tweets[indexPath.row]: 해당 위치의 트윗 데이터를 셀에 설정
+//indexPath.row: 현재 셀의 위치
 
 //MARK: - UICollectionViewDelegate
 
