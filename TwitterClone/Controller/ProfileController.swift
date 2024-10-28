@@ -14,6 +14,10 @@ class ProfileController: UICollectionViewController {
   //MARK: - Properties
   private let user: User
   
+  private var tweets = [Tweet](){
+    didSet { collectionView.reloadData() }
+  }
+  
   //MARK: - Lifecycle
   
   init(user: User) {
@@ -28,10 +32,11 @@ class ProfileController: UICollectionViewController {
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-   
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     configureCollectionView()
+    fetchTweets()
     
     print("DEBUG: User is \(user.username)")
   }
@@ -49,6 +54,13 @@ class ProfileController: UICollectionViewController {
   }
   //흠.. 근데 안된다
   
+  //MARK: - API
+  
+  func fetchTweets() {
+    TweetService.shared.fetchTweets(forUser: user) { tweets in
+      self.tweets = tweets
+    }
+  }
   //MARK: - Helpers
   
   func configureCollectionView() {
@@ -63,13 +75,16 @@ class ProfileController: UICollectionViewController {
 
 extension ProfileController {
   override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return 3
+    return tweets.count
   }
   override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! TweetCell
+    cell.tweet = tweets[indexPath.row]
     return cell
   }
 }
+//cell.tweet = tweets[indexPath.row]: 해당 위치의 트윗 데이터를 셀에 설정
+//indexPath.row: 현재 셀의 위치
 
 //MARK: - UICollectionViewDelegate
 
