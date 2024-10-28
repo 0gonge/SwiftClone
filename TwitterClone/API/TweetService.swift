@@ -50,9 +50,25 @@ struct TweetService {
         let tweet = Tweet(user: user, tweetID: tweetID, dictionary: dictionary)
         tweets.append(tweet)
         completion(tweets)
-//uid는 모든 사람이 보여지는게 가능하다.자신껏만 tweet이 보여지는 것이 아니다.  
+        //uid는 모든 사람이 보여지는게 가능하다.자신껏만 tweet이 보여지는 것이 아니다.
       }
     }
   }
+  
+  func fetchTweets(forUser user: User, completion: @escaping([Tweet]) -> Void) {
+    REF_USER_TWEETS.child(user.uid).observe(.childAdded) { snapshot in
+      let tweetID = snapshot.key
+      
+      REF_TWEETS.child(tweetID).observeSingleEvent(of: .value) {
+        snapshot in print(snapshot)
+      }
+    }
+    //observeSingleEvent: 데이터를 한 번만 가져옴(실시간 업데이트 X)
+    //.observe(.childAdded)는 Firebase의 실시간 이벤트 리스너
+    //.childAdded: 새로운 자식 노드가 추가될 때마다 호출
+    //snapshot : 현재 데이터베이스의 상태
+    //흐름 : 사용자의 트윗ID목록을 가져와주고, 각 트윗에 해당하는 실제 트윗 데이터를 가져와주고 있다.
+    
+  }
+  
 }
-

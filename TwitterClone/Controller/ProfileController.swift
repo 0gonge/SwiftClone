@@ -28,10 +28,11 @@ class ProfileController: UICollectionViewController {
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-   
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     configureCollectionView()
+    fetchTweets()
     
     print("DEBUG: User is \(user.username)")
   }
@@ -49,6 +50,13 @@ class ProfileController: UICollectionViewController {
   }
   //흠.. 근데 안된다
   
+  //MARK: - API
+  
+  func fetchTweets() {
+    TweetService.shared.fetchTweets(forUser: user) { tweets in
+      print("DEBUG: Api call completed...")
+    }
+  }
   //MARK: - Helpers
   
   func configureCollectionView() {
