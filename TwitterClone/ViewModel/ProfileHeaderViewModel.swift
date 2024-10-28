@@ -39,6 +39,11 @@ struct ProfileHeaderViewModel {
   
   private let user: User
   
+  let usernameText: String
+  //profileHeaderView에서 직접 접근해서 사용자 이름을 표시할 수 있기 때문에
+  //만약 private이면 외부에서 사용자의 이름을 가져올 수 없다.
+  
+  
   var followerString: NSAttributedString? {
     return attributedText(withValue: 0, text: "followers")
   }
@@ -59,6 +64,7 @@ struct ProfileHeaderViewModel {
   
   init(user: User){
     self.user = user
+    self.usernameText = "@" + user.username
   }
   
   fileprivate func attributedText(withValue value: Int, text: String) -> NSAttributedString {

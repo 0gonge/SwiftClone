@@ -75,7 +75,6 @@ class ProfileHeader: UICollectionReusableView {
   private let fullnameLabel: UILabel = {
     let label = UILabel()
     label.font = UIFont.boldSystemFont(ofSize: 20)
-    label.text = "Song YeoGyeong"
     return label
   }()
   
@@ -83,7 +82,6 @@ class ProfileHeader: UICollectionReusableView {
     let label = UILabel()
     label.font = UIFont.systemFont(ofSize: 16)
     label.textColor = .lightGray
-    label.text = "@0gonge"
     return label
   }()
   
@@ -215,6 +213,8 @@ class ProfileHeader: UICollectionReusableView {
     followingLabel.attributedText = viewModel.followerString
     followersLabel.attributedText = viewModel.followerString
     //viewModel에서 생성한 followingString을 attrivutedText에 할당해줌.
+    fullnameLabel.text = user.fullname
+    usernameLabel.text = viewModel.usernameText
   }
   
 }
