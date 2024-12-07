@@ -64,6 +64,7 @@
 		5CABC6742C11CD0500B1A700 /* NotificationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CABC6732C11CD0500B1A700 /* NotificationsController.swift */; };
 		5CABC6762C11CD1200B1A700 /* ConversationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CABC6752C11CD1200B1A700 /* ConversationsController.swift */; };
 		5CABC67A2C11EDCA00B1A700 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CABC6792C11EDCA00B1A700 /* Extensions.swift */; };
+		5CB08DDD2D04C06F002E09D7 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB08DDC2D04C06F002E09D7 /* UserCell.swift */; };
 		5CB201462C2339FB00E0BB6C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB201452C2339FB00E0BB6C /* Constants.swift */; };
 		5CB201482C288E4A00E0BB6C /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB201472C288E4A00E0BB6C /* AuthService.swift */; };
 		5CB47C572C727F7100959949 /* ProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB47C562C727F7100959949 /* ProfileHeader.swift */; };
@@ -121,6 +122,7 @@
 		5CABC6732C11CD0500B1A700 /* NotificationsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsController.swift; sourceTree = "<group>"; };
 		5CABC6752C11CD1200B1A700 /* ConversationsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsController.swift; sourceTree = "<group>"; };
 		5CABC6792C11EDCA00B1A700 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		5CB08DDC2D04C06F002E09D7 /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		5CB201452C2339FB00E0BB6C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		5CB201472C288E4A00E0BB6C /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		5CB47C562C727F7100959949 /* ProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeader.swift; sourceTree = "<group>"; };
@@ -302,6 +304,7 @@
 				5CB47C562C727F7100959949 /* ProfileHeader.swift */,
 				5CEC0F782C8A5ECE004F4683 /* ProfileFilterView.swift */,
 				5CEC0F7A2C8A631E004F4683 /* ProfileFilterCell.swift */,
+				5CB08DDC2D04C06F002E09D7 /* UserCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -488,6 +491,7 @@
 				5C9B90012C34869A0042FA59 /* CaptionTextView.swift in Sources */,
 				5CEC0F7B2C8A631F004F4683 /* ProfileFilterCell.swift in Sources */,
 				5CABC67A2C11EDCA00B1A700 /* Extensions.swift in Sources */,
+				5CB08DDD2D04C06F002E09D7 /* UserCell.swift in Sources */,
 				5C0F35F52C1E3B7700B06B64 /* Utilities.swift in Sources */,
 				5CABC6372C11C3A500B1A700 /* AppDelegate.swift in Sources */,
 				5CABC6722C11CCFD00B1A700 /* ExploreController.swift in Sources */,
